@@ -28,7 +28,7 @@ scene_spec_format = (
 prev_scene_intro = "\n\nHere is the ending of the previous scene:\n"
 cur_scene_intro = "\n\nHere is the last written snippet of the current scene:\n"
 
-# action: STEP 1, create initial specifications for the book based on the user's selected topic and form (novel, novella, short story etc.)
+# purpose: STEP 1, create initial specifications for the book based on the user's selected topic and form (novel, novella, short story etc.)
 # input: topic, form
 # calls: 
 # uses global: system, book_spec_format
@@ -42,7 +42,7 @@ def init_book_spec_messages(topic, form):
     ]
     return messages
 
-# action: fills in missing book specs
+# purpose: fills in missing book specs
 # input: field, text_spec
 # calls: 
 # uses global: system
@@ -59,7 +59,7 @@ def missing_book_spec_messages(field, text_spec):
     ]
     return messages
 
-# action: enhances book specs
+# purpose: enhances book specs
 # input: book_spec, form
 # calls: 
 # uses global: system
@@ -75,7 +75,7 @@ def enhance_book_spec_messages(book_spec, form):
     ]
     return messages
 
-# action: creates list of chapters (outline) in three acts
+# purpose: creates list of chapters (outline) in three acts
 # input: book_spec, form
 # calls: 
 # uses global: 
@@ -89,7 +89,7 @@ def create_plot_chapters_messages(book_spec, form):
     ]
     return messages
 
-# action: enhance chapter descriptions
+# purpose: enhance chapter descriptions
 # input: act_num, text_plan, book_spec, form
 # calls: 
 # uses global: system
@@ -104,7 +104,7 @@ def enhance_plot_chapters_messages(act_num, text_plan, book_spec, form):
     ]
     return messages
 
-# action: generate scene descriptions from chapter descriptions
+# purpose: generate scene descriptions from chapter descriptions
 # input: act_num, text_act, form
 # calls: 
 # uses global: system, scene_spec_format
@@ -119,7 +119,7 @@ def split_chapters_into_scenes_messages(act_num, text_act, form):
     ]
     return messages
 
-# action: generate scenes from the scene descriptions
+# purpose: generate scenes from the scene descriptions
 # input: scene, sc_num, ch_num, text_plan, form
 # calls: 
 # uses global: 
