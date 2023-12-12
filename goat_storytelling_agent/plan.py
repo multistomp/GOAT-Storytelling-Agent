@@ -1,6 +1,6 @@
-"""Unifies all plot forms such as by-chapter and by-scene outlines in a single dict."""
-import re
-import json
+"""Unifies all plot forms such as by-chapter and by-scene outlines in a single dict.""" #original comment in code
+import re        #regex, used to split and search strings
+import json        #json, used for last function, save_plan
 
 
 """
