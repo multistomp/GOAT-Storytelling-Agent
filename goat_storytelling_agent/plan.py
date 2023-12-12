@@ -3,7 +3,30 @@ import re
 import json
 
 
+"""
+FUNCTION MAP
+
+normalize_text_plan
+    |--->parse_text_plan
+         |---> split_by_act
+         |---> parse_act
+    |--->plan_2_str
+
+act_2_str
+
+save_plan
+
+"""
+
+
 class Plan:
+    
+    """
+    action: split up the plan into acts
+    input: original_plan
+    calls:
+    returns: "acts" as LIST
+    """
     @staticmethod
     def split_by_act(original_plan):
         # removes only Act texts with newline prepended soemwhere near
@@ -29,6 +52,13 @@ class Plan:
             acts = ['Act ' + act for act in acts[:]]
         return acts
 
+
+    """
+    action: split up an act tino chapters
+    input: act
+    calls:
+    returns: acts and chapters as DICTIONARY
+    """
     @staticmethod
     def parse_act(act):
         act = re.split(r'\n.{0,20}?Chapter .+:', act.strip())
@@ -36,6 +66,13 @@ class Plan:
                     if (text and (len(text.split()) > 3))]
         return {'act_descr': act[0].strip(), 'chapters': chapters}
 
+    
+    """
+    action: split up the plan into acts
+    input: text plan
+    calls: split_by_act() and parse_act()
+    returns: plan as LIST
+    """
     @staticmethod
     def parse_text_plan(text_plan):
         acts = Plan.split_by_act(text_plan)
@@ -45,12 +82,24 @@ class Plan:
         plan = [act for act in plan if act['chapters']]
         return plan
 
+    """
+    action: takes a text plan, splits into acts, then turns it into a string
+    input: text_plan
+    calls: parse_text_plan() and plan_2_str()
+    returns: text_plan as STRING
+    """
     @staticmethod
     def normalize_text_plan(text_plan):
         plan = Plan.parse_text_plan(text_plan)
         text_plan = Plan.plan_2_str(plan)
         return text_plan
-
+        
+    """
+    action: turns an act into a string
+    input: plan and act_num
+    calls: 
+    returns: text_plan as STRING
+    """
     @staticmethod
     def act_2_str(plan, act_num):
         text_plan = ''
@@ -70,6 +119,12 @@ class Plan:
             text_plan += act_descr + '\n'
         return text_plan.strip(), chs
 
+    """
+    action: turns a plan into a string
+    input: plan
+    calls: 
+    returns: text_plan as STRING
+    """
     @staticmethod
     def plan_2_str(plan):
         text_plan = ''
@@ -84,6 +139,12 @@ class Plan:
             text_plan += act_descr + '\n'
         return text_plan.strip()
 
+    """
+    action: saves a plan as a JSON file
+    input: plan, fpath
+    calls: 
+    returns: 
+    """
     @staticmethod
     def save_plan(plan, fpath):
         with open(fpath, 'w') as fp:
