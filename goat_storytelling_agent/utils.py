@@ -1,9 +1,15 @@
+
+# Split a string into a list where each word is a list item
+# Returns LIST of words with '\n' on the end of each word
+# Used by the two functions below
 def split_into_words_w_newline(text):
     lines = text.split('\n')
     split_text = [line.split(None) for line in lines if line]
     return split_text
 
-
+# Removes last N words of a STRING input
+# Calls split_into_words_w_newline
+# returns STRING
 def remove_last_n_words(text, n):
     split_text = split_into_words_w_newline(text)
     i = 1
@@ -25,7 +31,9 @@ def remove_last_n_words(text, n):
     text = "\n".join([" ".join(line) for line in split_text])
     return text.strip()
 
-
+# Keeps last N words of a STRING input
+# Calls split_into_words_w_newline
+# returns STRING
 def keep_last_n_words(text, n):
     split_text = split_into_words_w_newline(text)
     i = 1
