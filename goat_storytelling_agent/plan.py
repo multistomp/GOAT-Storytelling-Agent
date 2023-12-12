@@ -22,7 +22,7 @@ save_plan
 class Plan:
     
     """
-    action: split up the plan into acts
+    purpose: split up the plan into acts
     input: original_plan
     calls:
     returns: "acts" as LIST
@@ -54,7 +54,7 @@ class Plan:
 
 
     """
-    action: split up an act tino chapters
+    purpose: split up an act into chapters
     input: act
     calls:
     returns: acts and chapters as DICTIONARY
@@ -68,7 +68,7 @@ class Plan:
 
     
     """
-    action: split up the plan into acts
+    purpose: split up the plan into acts
     input: text plan
     calls: split_by_act() and parse_act()
     returns: plan as LIST
@@ -82,8 +82,9 @@ class Plan:
         plan = [act for act in plan if act['chapters']]
         return plan
 
+    
     """
-    action: takes a text plan, splits into acts, then turns it into a string
+    purpose: takes a text plan, splits into acts, then turns it into a string
     input: text_plan
     calls: parse_text_plan() and plan_2_str()
     returns: text_plan as STRING
@@ -93,9 +94,10 @@ class Plan:
         plan = Plan.parse_text_plan(text_plan)
         text_plan = Plan.plan_2_str(plan)
         return text_plan
-        
+
+    
     """
-    action: turns an act into a string
+    purpose: turns an act into a string
     input: plan and act_num
     calls: 
     returns: text_plan as STRING
@@ -119,8 +121,9 @@ class Plan:
             text_plan += act_descr + '\n'
         return text_plan.strip(), chs
 
+    
     """
-    action: turns a plan into a string
+    purpose: turns a plan into a string
     input: plan
     calls: 
     returns: text_plan as STRING
@@ -139,8 +142,9 @@ class Plan:
             text_plan += act_descr + '\n'
         return text_plan.strip()
 
+    
     """
-    action: saves a plan as a JSON file
+    purpose: saves a plan as a JSON file
     input: plan, fpath
     calls: 
     returns: 
