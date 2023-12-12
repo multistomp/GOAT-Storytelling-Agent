@@ -1,11 +1,14 @@
+# TUPLE: USED AT THE BEGINNING OF MOST PROMPTS SENT TO THE LLM
 system = (
     "You are a helpful assistant for fiction writing. "
     "Always cut the bullshit and provide concise outlines with useful details. "
     "Do not turn your stories into fairy tales, be realistic.")
 
+# LIST: STRINGS OF BOOK ATTRIBUTES - NOT USED HERE
 book_spec_fields = ['Genre', 'Place', 'Time', 'Theme',
                     'Tone', 'Point of View', 'Characters', 'Premise']
 
+# TUPLE: A STRING WITH A LIST OF BOOK ATTRIBUTES
 book_spec_format = (
     "Genre: genre\n"
     "Place: place\n"
@@ -16,14 +19,20 @@ book_spec_format = (
     "Characters: use specific names already\n"
     "Premise: describe some concrete events already")
 
+#TUPLE: A STRING DESCRIBING SCENE SPECIFICATIONS
 scene_spec_format = (
     "Chapter [number]:\nScene [number]:\nCharacters: character list\nPlace: place\nTime: absolute or relative time\nEvent: what happens\nConflict: scene micro-conflict\n"
     "Story value: story value affected by the scene\nStory value charge: the charge of story value by the end of the scene (positive or negative)\nMood: mood\nOutcome: the result.")
 
+#STRINGS: SCENE MARKERS
 prev_scene_intro = "\n\nHere is the ending of the previous scene:\n"
 cur_scene_intro = "\n\nHere is the last written snippet of the current scene:\n"
 
-
+# action: STEP 1, create initial specifications for the book based on the user's selected topic and form (novel, novella, short story etc.)
+# input: topic, form
+# calls: 
+# uses global: system, book_spec_format
+# returns: message for the LLM as a LIST of DICTs
 def init_book_spec_messages(topic, form):
     messages = [
         {"role": "system", "content": system},
@@ -33,7 +42,11 @@ def init_book_spec_messages(topic, form):
     ]
     return messages
 
-
+# action: fills in missing book specs
+# input: field, text_spec
+# calls: 
+# uses global: system
+# returns: message for the LLM as a LIST of DICTs
 def missing_book_spec_messages(field, text_spec):
     messages = [
         {"role": "system", "content": system},
@@ -46,7 +59,11 @@ def missing_book_spec_messages(field, text_spec):
     ]
     return messages
 
-
+# action: enhances book specs
+# input: book_spec, form
+# calls: 
+# uses global: system
+# returns: message for the LLM as a LIST of DICTs
 def enhance_book_spec_messages(book_spec, form):
     messages = [
         {"role": "system", "content": system},
@@ -58,7 +75,11 @@ def enhance_book_spec_messages(book_spec, form):
     ]
     return messages
 
-
+# action: creates list of chapters (outline) in three acts
+# input: book_spec, form
+# calls: 
+# uses global: 
+# returns: message for the LLM as a LIST of DICTs
 def create_plot_chapters_messages(book_spec, form):
     messages = [
         {"role": "user", "content": (
@@ -68,7 +89,11 @@ def create_plot_chapters_messages(book_spec, form):
     ]
     return messages
 
-
+# action: enhance chapter descriptions
+# input: act_num, text_plan, book_spec, form
+# calls: 
+# uses global: system
+# returns: message for the LLM as a LIST of DICTs
 def enhance_plot_chapters_messages(act_num, text_plan, book_spec, form):
     act_num += 1
     messages = [
@@ -79,7 +104,11 @@ def enhance_plot_chapters_messages(act_num, text_plan, book_spec, form):
     ]
     return messages
 
-
+# action: generate scene descriptions from chapter descriptions
+# input: act_num, text_act, form
+# calls: 
+# uses global: system, scene_spec_format
+# returns: message for the LLM as a LIST of DICTs
 def split_chapters_into_scenes_messages(act_num, text_act, form):
     messages = [
         {"role": "system", "content": system},
@@ -90,7 +119,11 @@ def split_chapters_into_scenes_messages(act_num, text_act, form):
     ]
     return messages
 
-
+# action: generate scenes from the scene descriptions
+# input: scene, sc_num, ch_num, text_plan, form
+# calls: 
+# uses global: 
+# returns: message for the LLM as a LIST of DICTs
 def scene_messages(scene, sc_num, ch_num, text_plan, form):
     messages = [
         {"role": "system", "content": 'You are an expert fiction writer. Write detailed scenes with lively dialogue.'},
