@@ -480,7 +480,7 @@ class StoryAgent:
     # Purpose: 
     # Inputs: 
     # Calls: 
-    # Returns: 
+    # Returns: STRING of scene text
     @staticmethod
     def prepare_scene_text(text):
         lines = text.split('\n')
@@ -505,10 +505,10 @@ class StoryAgent:
         return text
 
 
-    # Purpose: 
-    # Inputs: 
-    # Calls: 
-    # Returns: 
+    # Purpose: writes a scene
+    # Inputs: scene, sc_num, ch_num, plan, previous_scene
+    # Calls: many
+    # Returns: List[Dict] of messages, STRING of scene text
     def write_a_scene(
             self, scene, sc_num, ch_num, plan, previous_scene=None):
         """Generates a scene text for a form
@@ -585,10 +585,10 @@ class StoryAgent:
         return messages, generated_scene
 
 
-    # Purpose: 
-    # Inputs: 
-    # Calls: 
-    # Returns: 
+    # Purpose: main bookwriting function
+    # Inputs: topic (from user's script)
+    # Calls: many
+    # Returns: the book text as LIST of scenes
     def generate_story(self, topic):
         """Example pipeline for a novel creation"""
         _, book_spec = self.init_book_spec(topic)
